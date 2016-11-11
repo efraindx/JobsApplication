@@ -1,0 +1,48 @@
+﻿@model IEnumerable<JobsApplication.Models.JobOffer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Job Offers</h2>
+
+<div class="row">
+    <p>
+        @Html.ActionLink("Generate RSS", "PostFeed")
+        @Html.ActionLink("Post a Job", "Create", null, new { @class = "btn btn-default pull-right" })
+    </p>
+</div>
+
+@{
+    foreach (var group in Model.GroupBy(item => item.Category))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#">@group.Key.Name</a>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Position</th>
+                            <th>Company</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in group)
+                        {
+                            <tr>
+                                <td style="width: 25px;">@item.Location</td>
+                                <td style="width: 25px;">@item.Position</td>
+                                <td style="width: 25px;">@item.Company</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}
